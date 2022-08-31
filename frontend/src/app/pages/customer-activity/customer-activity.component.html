@@ -1,0 +1,263 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 250px; background-image: url(assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-success opacity-8"></span>
+  <!-- Header container -->
+ 
+</div>
+<div class="container-fluid mt--7">
+  <div *ngIf = "showSuccessMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success!</strong> {{successMessage}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="showSuccessMessage = false">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div *ngIf = "showErrorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error!</strong> {{errorMessage}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="showErrorMessage = false">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="row">
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+      <div class="card card-profile shadow">
+        <div class="row justify-content-center">
+          <div class="col-lg-3 order-lg-2">
+            <div class="card-profile-image">
+              <a href="javascript:void(0)">
+                <img [src]="customerProfile?customerProfile.IMAGE_PATH:''" class="rounded-circle">
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+          <div class="d-flex justify-content-between">
+            <a href="javascript:void(0)" class="btn btn-sm btn-info mr-4">Connect</a>
+            <a href="javascript:void(0)" class="btn btn-sm btn-default float-right">Message</a>
+          </div>
+        </div> -->
+        <div class="card-body pt-0 pt-md-4">
+          <!-- <div class="row">
+            <div class="col">
+              <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                <div>
+                  <span class="heading">22</span>
+                  <span class="description">Friends</span>
+                </div>
+                <div>
+                  <span class="heading">10</span>
+                  <span class="description">Photos</span>
+                </div>
+                <div>
+                  <span class="heading">89</span>
+                  <span class="description">Comments</span>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <div class="text-center">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h2>
+              {{customerProfile.NAME ? customerProfile.NAME : 'NA' }}<span class="font-weight-light">, Customer ID: {{customerProfile.ID ? customerProfile.ID : 'NA'}}</span>
+            </h2>
+             <div *ngIf = "!highlightPendingPayment" class="h5 font-weight-500">
+               <h2>
+                <i class="ni location_pin mr-2"></i><B style="color: green;">Payment Status: {{paymentStatus}}</B>
+               </h2>
+              
+            </div>
+            <div *ngIf = "highlightPendingPayment" class="h5 font-weight-500">
+              <h1>
+                <i class="ni location_pin mr-2"></i><B style="color: red;"><marquee>Payment Status: {{paymentStatus}}</marquee></B>
+              </h1>
+            </div>
+            <!--<div class="h5 mt-4">
+              <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
+            </div>
+            <div>
+              <i class="ni education_hat mr-2"></i>University of Computer Science
+            </div>
+            <hr class="my-4" />
+            <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p> -->
+            <!-- <a href="javascript:void(0)">Show more</a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-12">
+              <input type="text" id="input-Id"  placeholder = "Enter Customer ID" class="form-control form-control-alternative" [(ngModel)] = "searchId" [ngModelOptions]="{standalone: true}" (keypress)="eventHandler($event)">
+              <div style="float:right">
+                <br>
+                <a class="btn btn-sm btn-success" (click)="initData()">Search</a>
+                <a class="btn btn-sm btn-success" *ngIf = "showActionButtons && !showCheckout" (click)="checkin()">Check-In</a>
+                <a class="btn btn-sm btn-success" *ngIf = "showActionButtons && showCheckout" (click)="checkout()">Check-Out</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form *ngIf = "_Id">
+            <h6 class="heading-small text-muted mb-4">User information</h6>
+            <div class="pl-lg">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-email">Customer ID</label>
+                    <input type="text" id="input-custId" class="form-control form-control-alternative" [disabled] = "!0"  [(ngModel)] = "customerProfile.ID" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">Name</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative" [disabled] = "!0"  [(ngModel)] = "customerProfile.NAME" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-container *ngIf = "_Id">
+              <hr class="my-4" />
+              <h6 class="heading-small text-muted mb-4">Today's Activities</h6>
+              <div class="pl-lg">
+                <div class="row">
+                  <div class="col">
+                    <div class="card shadow">
+                      <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                          <thead class="thead">
+                            <tr>
+                              <th scope="col">IN TIME</th>
+                              <th scope="col">OUT TIME</th>
+                              <th scope="col">DURATION</th>
+                              <!-- <th scope="col">ACTIONS</th> -->
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let customerActivity of customerActivities">
+                              <td>
+                                {{customerActivity.IN_TIME | date:'dd-MM-yyyy hh:mm:ss a'}}
+                              </td>
+                              <td>
+                                {{customerActivity.OUT_TIME | date:'dd-MM-yyyy hh:mm:ss a'}}
+                              </td>
+                              <td>
+                                {{customerActivity.DURATION}}
+                              </td>
+                              <!-- <td>
+                                <a class="btn btn-sm btn-secondary" *ngIf = "customerActivity.readonly == 'true'" (click)="customerActivity.readonly = 'false'">Edit</a>
+                                <a class="btn btn-sm btn-secondary" *ngIf = "customerActivity.readonly != 'true'"  (click)="saveCustomerActivity(customerActivity);">Save</a>
+                              </td> -->
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr class="my-4" />
+              <h6 class="heading-small text-muted mb-4">Recent Payments</h6>
+              <div class="pl-lg">
+                <div class="row">
+                  <div class="col">
+                    <div class="card shadow">
+                      <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                          <thead class="thead">
+                            <tr>
+                              <th scope="col">PAYMENT AMOUNT</th>
+                              <th scope="col">PAYMENT DATE</th>
+                              <th scope="col">EFECTIVE DATE</th>
+                              <th scope="col">END DATE</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let customerPayment of customerPayments">
+                              <td>
+                                {{customerPayment.PAYMENT_AMOUNT}}
+                              </td>
+                              <td>
+                                {{customerPayment.PAYMENT_DATE | date:'dd-MM-yyyy' }}
+                              </td>
+                              <td>
+                                {{customerPayment.EFFECTIVE_DATE | date:'dd-MM-yyyy'}}
+                              </td>
+                              <td>
+                                {{customerPayment.END_DATE | date:'dd-MM-yyyy'}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr class="my-4" />
+              <h6 class="heading-small text-muted mb-4">Recent Measurements</h6>
+              <div class="pl-lg">
+                <div class="row">
+                  <div class="col">
+                    <div class="card shadow">
+                      <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                          <thead class="thead">
+                            <tr>
+                              <th scope="col">WEIGHT IN KG</th>
+                              <!-- <th scope="col">HEIGHT</th> -->
+                              <th scope="col">SHOULDER IN INCHES</th>
+                              <th scope="col">CHEST IN INCHES</th>
+                              <th scope="col">ARMS IN INCHES</th>
+                              <th scope="col">ABDOMEN IN INCHES</th>
+                              <th scope="col">THIGHS IN INCHES</th>
+                              <th scope="col">DATE OF MEASUREMENT</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let customerMeasurement of customerMeasurements">
+                              <td>
+                                {{customerMeasurement.WEIGHT}}
+                              </td>
+                              <!-- <td>
+                               {{customerMeasurement.HEIGHT}}
+                              </td> -->
+                              <td>
+                                {{customerMeasurement.SHOULDER}}
+                              </td>
+                              <td>
+                                {{customerMeasurement.CHEST}}
+                              </td>
+                              <td>
+                                {{customerMeasurement.ARMS}}
+                              </td>
+                              <td>
+                                {{customerMeasurement.ABS}}
+                              </td>
+                              <td>
+                                {{customerMeasurement.THIGH}}
+                              </td>
+                              <td>
+                                {{customerMeasurement.ENTRY_DATE}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
