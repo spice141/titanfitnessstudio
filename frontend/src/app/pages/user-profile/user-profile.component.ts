@@ -308,7 +308,7 @@ export class UserProfileComponent implements OnInit {
       customerMeasurement.readonly = "true";
     }
     else{
-      if(customerMeasurement.WEIGHT  && customerMeasurement.SHOULDER && customerMeasurement.CHEST && customerMeasurement.ARMS && customerMeasurement.ABS && customerMeasurement.THIGH){
+      if(customerMeasurement.WEIGHT  && customerMeasurement.HEIGHT && customerMeasurement.SHOULDER && customerMeasurement.CHEST && customerMeasurement.ARMS && customerMeasurement.ABS && customerMeasurement.THIGH){
         this.gymMasterServices.createCustomerMeasurement(customerMeasurement).subscribe(result =>{
          if(result['id']) {
           this.showMessage("success",true,"Measurement Recorded Successfully");
