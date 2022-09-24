@@ -11,12 +11,12 @@ export const ROUTES: RouteInfo[] = [
     // { path: '/dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '' },
     // { path: '/icons', title: 'Icons',  icon:'ni-planet text-blue', class: '' },
     // { path: '/maps', title: 'Maps',  icon:'ni-pin-3 text-orange', class: '' },
-    { path: '/user-profile', title: 'New Customer Registration',  icon:'ni-single-02 text-yellow', class: '' },
-    { path: '/tables', title: 'Search Existing Customers',  icon:'ni-bullet-list-67 text-red', class: '' },
+    { path: '/user-profile', title: 'New Customer Registration',  icon:'ni-single-02 text-green', class: '' },
+    { path: '/tables', title: 'Search Existing Customers',  icon:'ni-zoom-split-in text-green', class: '' },
     //{ path: '/pendingpayments', title: 'View all Pending Payments',  icon:'ni-bullet-list-67 text-red', class: '' },
-    { path: '/paymenthistory', title: 'Customer Payments',  icon:'ni-bullet-list-67 text-red', class: '' },
-    { path: '/activitylog', title: 'Overall Gym Attendance',  icon:'ni-bullet-list-67 text-red', class: '' },
-    { path: '/customer-activity', title: 'Customer Punch In/Out',  icon: 'ni-tv-2 text-primary', class: '' }
+    { path: '/paymenthistory', title: 'Customer Payments',  icon:'ni ni-money-coins text-green', class: '' },
+    { path: '/activitylog', title: 'Overall Gym Attendance',  icon:'ni ni-books text-green', class: '' },
+    { path: '/customer-activity', title: 'Customer Time Punch In/Out',  icon: 'ni ni-time-alarm text-green', class: '' }
     // { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '' },
     // { path: '/register', title: 'Register',  icon:'ni-circle-08 text-pink', class: '' }
 ];

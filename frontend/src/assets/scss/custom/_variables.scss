@@ -415,7 +415,7 @@ $lead-font-weight:            300 !default;
 
 $small-font-size:             80% !default;
 
-$text-muted:                  $gray-600 !default;
+$text-muted:                  $black !default;
 
 $blockquote-small-color:      $gray-600 !default;
 $blockquote-font-size:        ($font-size-base * 1.25) !default;
@@ -456,7 +456,7 @@ $table-border-width:          $border-width !default;
 $table-border-color:          $gray-200 !default;
 
 $table-head-bg:               $gray-100 !default;
-$table-head-color:            $gray-600 !default;
+$table-head-color:            $black !default;
 $table-head-spacer-y:         .75rem !default;
 
 $table-head-font-size:        .65rem !default;
